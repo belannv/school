@@ -1,10 +1,10 @@
-package com.college.model;
+package com.school;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "Клас")
+@Table(name = "class")
 public class SchoolClass {
 
     @Id

@@ -1,10 +1,10 @@
-package com.college.model;
+package com.school;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "Школа")
+@Table(name = "school")
 public class School {
 
     @Id
@@ -24,7 +24,7 @@ public class School {
     @Column(name = "city")
     private String city;
 
-    @Column(name = "phone number")
+    @Column(name = "phone_number")
     private String phoneNumber;
 
     @Column(name = "director")

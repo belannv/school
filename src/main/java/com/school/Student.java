@@ -1,34 +1,31 @@
-package com.college.model;
+package com.school;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "Вчитель")
-public class Teacher {
+@Table(name = "student")
+public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int id;
 
-    @Column(name = "Name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "lvl")
-    private String lvl;
-
-    // Связь: Много Учителей принадлежат одной Школе
+    // Связь: Много Учеников принадлежат одному Классу
     @ManyToOne
-    @JoinColumn(name = "school_ID")
-    private School school;
+    @JoinColumn(name = "class_ID")
+    private SchoolClass schoolClass;
 
-    // Связь: Один Учитель имеет много Записей в журнале
-    @OneToMany(mappedBy = "teacher")
+    // Связь: Один Ученик имеет много Записей в журнале
+    @OneToMany(mappedBy = "student")
     private Set<Journal> journalEntries;
     
     // Пустой конструктор
-    public Teacher() {
+    public Student() {
     }
 
     // --- Геттеры и Сеттеры ---
@@ -49,20 +46,12 @@ public class Teacher {
         this.name = name;
     }
 
-    public String getLvl() {
-        return lvl;
+    public SchoolClass getSchoolClass() {
+        return schoolClass;
     }
 
-    public void setLvl(String lvl) {
-        this.lvl = lvl;
-    }
-
-    public School getSchool() {
-        return school;
-    }
-
-    public void setSchool(School school) {
-        this.school = school;
+    public void setSchoolClass(SchoolClass schoolClass) {
+        this.schoolClass = schoolClass;
     }
 
     public Set<Journal> getJournalEntries() {

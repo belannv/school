@@ -1,4 +1,4 @@
-package com.college.model;
+package com.school;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -72,7 +72,7 @@ public class MainApp {
             session.save(student1);
 
             Journal journalEntry1 = new Journal();
-            journalEntry1.setSubject(new String[]{"Математика"});
+            journalEntry1.setSubject("Математика");
             journalEntry1.setRating("5");
             journalEntry1.setDate(LocalDate.now());
             journalEntry1.setStudent(student1);
@@ -80,7 +80,7 @@ public class MainApp {
             session.save(journalEntry1);
 
             Journal journalEntry2 = new Journal();
-            journalEntry2.setSubject(new String[]{"Фізика"});
+            journalEntry2.setSubject("Фізика");
             journalEntry2.setRating("4");
             journalEntry2.setDate(LocalDate.now().minusDays(1));
             journalEntry2.setStudent(student1);
@@ -104,7 +104,7 @@ public class MainApp {
         try {
             tx = session.beginTransaction();
 
-            String hql = "SELECT new com.college.model.ScheduleInfoDTO(" +
+            String hql = "SELECT new com.school.ScheduleInfoDTO(" +
                          "s.name, " +
                          "sc.name, " +
                          "array_to_string(j.subject, ', '), " +

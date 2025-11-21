@@ -28,10 +28,10 @@
         <property name="hibernate.current_session_context_class">thread</property>
 
         <!-- List of annotated entity classes -->
-        <mapping class="com.college.model.School"/>
-        <mapping class="com.college.model.SchoolClass"/>
-        <mapping class="com.college.model.Teacher"/>
-        <mapping class="com.college.model.Student"/>
-        <mapping class="com.college.model.Journal"/>
+        <mapping class="com.school.School"/>
+        <mapping class="com.school.SchoolClass"/>
+        <mapping class="com.school.Teacher"/>
+        <mapping class="com.school.Student"/>
+        <mapping class="com.school.Journal"/>
     </session-factory>
 </hibernate-configuration>

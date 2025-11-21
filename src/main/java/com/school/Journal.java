@@ -1,10 +1,10 @@
-package com.college.model;
+package com.school;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "Журнал")
+@Table(name = "journal")
 public class Journal {
 
     @Id
@@ -15,7 +15,7 @@ public class Journal {
     // ВАЖНО: Ваша колонка `subject` - это массив. 
     // Этот код попытается прочитать его как массив строк.
     @Column(name = "subject", columnDefinition = "character varying[]")
-    private String[] subject;
+    private String subject;
 
     // ВАЖНО: Ваша колонка `date` имеет странный тип `bit varying`.
     // Но данные в ней (2024-09-14) выглядят как ДАТА.
@@ -51,11 +51,11 @@ public class Journal {
         this.id = id;
     }
 
-    public String[] getSubject() {
+    public String getSubject() {
         return subject;
     }
 
-    public void setSubject(String[] subject) {
+    public void setSubject(String subject) {
         this.subject = subject;
     }
 

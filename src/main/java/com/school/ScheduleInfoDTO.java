@@ -1,4 +1,4 @@
-package com.college.model; 
+package com.school; 
 
 
 public class ScheduleInfoDTO {
