@@ -14,7 +14,7 @@ public class Journal {
 
     // ВАЖНО: Ваша колонка `subject` - это массив. 
     // Этот код попытается прочитать его как массив строк.
-    @Column(name = "subject", columnDefinition = "character varying[]")
+    @Column(name = "subject")
     private String subject;
 
     // ВАЖНО: Ваша колонка `date` имеет странный тип `bit varying`.
