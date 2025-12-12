@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,13 +16,13 @@ import java.util.Scanner;
  * Додаток для роботи з базою даних шкільного журналу.
  */
 @SpringBootApplication
-public class SchoolAplication implements CommandLineRunner {
+public class SchoolApplication implements CommandLineRunner {
 
     @Autowired
     private JournalRepository journalRepository;
 
     public static void main(String[] args) {
-        SpringApplication.run(SchoolAplication.class, args);
+        SpringApplication.run(SchoolApplication.class, args);
     }
 
     @Override
@@ -42,13 +43,13 @@ public class SchoolAplication implements CommandLineRunner {
 
                 switch (choice) {
                     case 1:
-                        addjournalFromCsv();
+                        addJournalFromCsv();
                         break;
                     case 2:
-                        viewAlljournals();
+                        viewAllJournals();
                         break;
                     case 3:
-                        dropAlljournals();
+                        dropAllJournals();
                         break;
                     case 4:
                         System.out.println("Робота завершена.");
@@ -64,9 +65,10 @@ public class SchoolAplication implements CommandLineRunner {
         }
     }
 
-    private void addjournalFromCsv() {
+    private void addJournalFromCsv() {
         // Зверніть увагу: файл має називатися school.csv і лежати в папці resources
-        try (CSVReader reader = new CSVReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("school.csv")))) {
+        try (CSVReader reader = new CSVReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("school.csv"),
+        StandardCharsets.UTF_8))) {
             List<String[]> records = reader.readAll();
 
             if (records.isEmpty()) {
@@ -76,10 +78,10 @@ public class SchoolAplication implements CommandLineRunner {
 
             records.remove(0); // Видалити перший рядок з заголовками (Student, Clazz, etc.)
 
-            List<journal> journalList = new ArrayList<>();
+            List<Journal> journalList = new ArrayList<>();
             for (String[] record : records) {
                 // Переконайтеся, що порядок тут відповідає порядку колонок у вашому school.csv
-                journal journalEntry = new journal(
+                Journal journalEntry = new Journal(
                     record[0],  // Student (ПІБ учня)
                     record[1],  // Clazz (Клас)
                     record[2],  // Teacher (ПІБ вчителя)
@@ -104,8 +106,8 @@ public class SchoolAplication implements CommandLineRunner {
         }
     }
 
-    private void viewAlljournals() {
-        List<journal> journals = journalRepository.findAll();
+    private void viewAllJournals() {
+        List<Journal> journals = journalRepository.findAll();
         if (journals.isEmpty()) {
             System.out.println("Журнал порожній. Спочатку завантажте дані (пункт 1).");
         } else {
@@ -115,7 +117,7 @@ public class SchoolAplication implements CommandLineRunner {
         }
     }
 
-    private void dropAlljournals() {
+    private void dropAllJournals() {
         long count = journalRepository.count();
         journalRepository.deleteAll();
         System.out.println("Видалено " + count + " записів. База даних очищена.");
