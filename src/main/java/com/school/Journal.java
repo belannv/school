@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "school-journal")
-public class journal {
+public class Journal {
     @Id
     private String id;
     
@@ -20,9 +20,9 @@ public class journal {
     private String phone;
     private String director;
 
-    public journal() {}
+    public Journal() {}
 
-    public journal(String student, String clazz, String teacher, String subject, String date, 
+    public Journal(String student, String clazz, String teacher, String subject, String date, 
                    String mark, String teacherLevel, String school, String address, String phone, String director) {
         this.student = student;
         this.clazz = clazz;
@@ -40,7 +40,7 @@ public class journal {
 
     @Override
     public String toString() {
-        return "journal {" +
+        return "Journal {" +
                 " id='" + id + '\'' +
                 ", student='" + student + '\'' +
                 ", clazz='" + clazz + '\'' +
