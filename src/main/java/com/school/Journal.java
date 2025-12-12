@@ -1,93 +1,70 @@
 package com.school;
 
-import javax.persistence.*;
-import java.time.LocalDate;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "journal")
-public class Journal {
-
+@Document(collection = "school-journal")
+public class journal {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private int id;
-
-    // ВАЖНО: Ваша колонка `subject` - это массив. 
-    // Этот код попытается прочитать его как массив строк.
-    @Column(name = "subject")
+    private String id;
+    
+    private String student;
+    private String clazz;
+    private String teacher;
     private String subject;
+    private String date;
+    private String mark;
+    private String teacherLevel;
+    private String school;        
+    private String address;
+    private String phone;
+    private String director;
 
-    // ВАЖНО: Ваша колонка `date` имеет странный тип `bit varying`.
-    // Но данные в ней (2024-09-14) выглядят как ДАТА.
-    // Я использую `LocalDate`. Если это вызовет ошибку, 
-    // тип колонки в PostgreSQL нужно изменить на `DATE`.
-    @Column(name = "date")
-    private LocalDate date;
+    public journal() {}
 
-    @Column(name = "rating")
-    private String rating;
-
-    // Связь: Много Записей в журнале принадлежат одному Ученику
-    @ManyToOne
-    @JoinColumn(name = "student_ID")
-    private Student student;
-
-    // Связь: Много Записей в журнале принадлежат одному Учителю
-    @ManyToOne
-    @JoinColumn(name = "teacher_ID")
-    private Teacher teacher;
-
-    // Пустой конструктор
-    public Journal() {
-    }
-
-    // --- Геттеры и Сеттеры ---
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public String getRating() {
-        return rating;
-    }
-
-    public void setRating(String rating) {
-        this.rating = rating;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
+    public journal(String student, String clazz, String teacher, String subject, String date, 
+                   String mark, String teacherLevel, String school, String address, String phone, String director) {
         this.student = student;
-    }
-
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
+        this.clazz = clazz;
         this.teacher = teacher;
+        this.subject = subject;
+        this.date = date;
+        this.mark = mark;
+        this.teacherLevel = teacherLevel;
+        this.school = school;
+        this.address = address;
+        this.phone = phone;
+        this.director = director;
     }
+
+
+    @Override
+    public String toString() {
+        return "journal {" +
+                " id='" + id + '\'' +
+                ", student='" + student + '\'' +
+                ", clazz='" + clazz + '\'' +
+                ", teacher='" + teacher + '\'' +
+                ", subject='" + subject + '\'' +
+                ", date='" + date + '\'' +
+                ", mark='" + mark + '\'' +
+                ", teacherLevel='" + teacherLevel + '\'' +
+                ", school='" + school + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", director='" + director + '\'' +
+                '}';
+    }
+    
+    public String getStudent() { return student; }
+    public String getClazz() { return clazz; }
+    public String getTeacher() { return teacher; }
+    public String getSubject() { return subject; }
+    public String getDate() { return date; }
+    public String getMark() { return mark; }
+    public String getTeacherLevel() { return teacherLevel; }
+    public String getSchool() { return school; }
+    public String getAddress() { return address; }
+    public String getPhone() { return phone; }
+    public String getDirector() { return director; }
 }

@@ -1,427 +1,204 @@
-# Кроки для виконання
-1. Встановіть локально PostgreSQL, Maven та Java.
-1. Створіть базу даних school_db.
-1. Вкажіть правильне значення властивості `hibernate.connection.password` у файлі "src\main\resources\hibernate.cfg.xml".
-1. Зберіть програму за допомогою команди: `mvn clean install`.
-1. Запустіть програму за допомогою команди: `mvn exec:java -D"exec.mainClass=com.school.MainApp"`.
-1. Якщо термінал відображає знаки питання "?" замість українських символів, зконфігуруйте термінал на відображення шрифту в форматі UTF-8 виконавши команду `chcp 65001`.
+# Приклад Java-програми ведення розкладу коледжу з використанням СКБД MongoDB
 
-# Результати виконання програми
+## Кроки для виконання
+1. Завантажте і встановіть Java Development Kit 23 for Windows.
+1. Завантажте Maven з https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.zip і розпакуйте його на локальний комп'ютер.
+1. В Windows в параметрах системи додайте системну змінну MAVEN_HOME=<шлях до папки з Maven>
+1. В Windows в параметрах системи додайте `;<шлях до папки з Maven>\bin` в системну змінну PATH.
+1. Встановіть СКБД MongoDB Community Server вибрати варіант установки Complete -> "Run service as Network Service user"
+1. Встановіть MongoDB Compass (GUI).
+1. Створіть базу даних `school-db` і колекцію в ній `school-schedule`.
+1. Зберить програму використовуючи команду `mvn clean install`.
+1. Запустіть програму за допомогою команди `mvn exec:java -Dexec.mainClass="com.school.schoolApplication"`.
+
+## Результати виконання програми
 ```
-Oct 31, 2025 12:49:47 AM org.hibernate.Version logVersion
-INFO: HHH000412: Hibernate ORM core version 5.6.14.Final
-Oct 31, 2025 12:49:47 AM org.hibernate.boot.jaxb.internal.stax.LocalXmlResourceResolver resolveEntity
-WARN: HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-configuration. Use namespace http://www.hibernate.org/dtd/hibernate-configuration instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
-Oct 31, 2025 12:49:48 AM org.hibernate.annotations.common.reflection.java.JavaReflectionManager <clinit>
-INFO: HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-Oct 31, 2025 12:49:48 AM org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator instantiateC3p0Provider
-WARN: HHH000022: c3p0 properties were encountered, but the c3p0 provider class was not found on the classpath; these properties are going to be ignored.
-Oct 31, 2025 12:49:48 AM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
-WARN: HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-Oct 31, 2025 12:49:48 AM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
-INFO: HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/school_db]
-Oct 31, 2025 12:49:48 AM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
-INFO: HHH10001001: Connection properties: {user=postgres, password=****}
-Oct 31, 2025 12:49:48 AM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
-INFO: HHH10001003: Autocommit mode: false
-Oct 31, 2025 12:49:48 AM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PooledConnections <init>
-INFO: HHH000115: Hibernate connection pool size: 20 (min=1)
-Oct 31, 2025 12:49:49 AM org.hibernate.dialect.Dialect <init>
-INFO: HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
-Hibernate: 
+PS C:\Users\dmitr\OneDrive\Documents\GitHub\school-schedule-app> mvn clean install
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< com.school:school-schedule >--------------------
+[INFO] Building school-sample 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ school-schedule ---
+[INFO] Deleting C:\Users\dmitr\OneDrive\Documents\GitHub\school-schedule-app\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ school-schedule ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ school-schedule ---
+[INFO] Recompiling the module because of changed source code.
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 3 source files with javac [debug target 1.8] to target\classes
+[WARNING] bootstrap class path is not set in conjunction with -source 8
+  not setting the bootstrap class path may lead to class files that cannot run on JDK 8
+    --release 8 is recommended instead of -source 8 -target 1.8 because it sets the bootstrap class path automatically
+[WARNING] source value 8 is obsolete and will be removed in a future release
+[WARNING] target value 8 is obsolete and will be removed in a future release
+[WARNING] To suppress warnings about obsolete options, use -Xlint:-options.
+[INFO]
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ school-schedule ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\Users\dmitr\OneDrive\Documents\GitHub\school-schedule-app\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ school-schedule ---
+[INFO] Recompiling the module because of changed dependency.
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 1 source file with javac [debug target 1.8] to target\test-classes
+[WARNING] bootstrap class path is not set in conjunction with -source 8
+  not setting the bootstrap class path may lead to class files that cannot run on JDK 8
+    --release 8 is recommended instead of -source 8 -target 1.8 because it sets the bootstrap class path automatically
+[WARNING] source value 8 is obsolete and will be removed in a future release
+[WARNING] target value 8 is obsolete and will be removed in a future release
+[INFO]
+[INFO] --- surefire:3.2.5:test (default-test) @ school-schedule ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junit.JUnit3Provider
+[INFO]
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.school.AppTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.114 s -- in com.school.AppTest
+[INFO]
+[INFO] Results:
+[INFO]
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO]
+[INFO]
+[INFO] --- jar:3.4.1:jar (default-jar) @ school-schedule ---
+[INFO] Building jar: C:\Users\dmitr\OneDrive\Documents\GitHub\school-schedule-app\target\school-schedule-1.0-SNAPSHOT.jar
+[INFO]
+[INFO] --- install:3.1.2:install (default-install) @ school-schedule ---
+[INFO] Installing C:\Users\dmitr\OneDrive\Documents\GitHub\school-schedule-app\pom.xml to C:\Users\dmitr\.m2\repository\com\school\school-schedule\1.0-SNAPSHOT\school-schedule-1.0-SNAPSHOT.pom
+[INFO] Installing C:\Users\dmitr\OneDrive\Documents\GitHub\school-schedule-app\target\school-schedule-1.0-SNAPSHOT.jar to C:\Users\dmitr\.m2\repository\com\school\school-schedule\1.0-SNAPSHOT\school-schedule-1.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  14.922 s
+[INFO] Finished at: 2024-11-20T22:01:26+02:00
+[INFO] ------------------------------------------------------------------------
+PS C:\Users\dmitr\OneDrive\Documents\GitHub\school-schedule-app> mvn exec:java -D"exec.mainClass=com.school.schoolApplication"
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< com.school:school-schedule >--------------------
+[INFO] Building school-sample 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- exec:3.5.0:java (default-cli) @ school-schedule ---
 
-    alter table class_schedules
-       drop constraint FKme1t7iugw17i8ye64yafbkpno
-Oct 31, 2025 12:49:50 AM org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl getIsolatedConnection
-INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7248faa7] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
-Hibernate: 
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.5.4)
 
-    alter table class_schedules
-       drop constraint FK2rlbqylwb07utwfushcbsv2an
-Hibernate:
-
-    alter table class_schedules
-       drop constraint FKjrtiswbp5lypa0jqhwtbfnlxc
-Hibernate: 
-
-    alter table courses
-       drop constraint FKsv2mdywju86wq12x4did4xd78
-Hibernate:
-
-    alter table enrollments
-       drop constraint FKho8mcicp4196ebpltdn9wl6co
-Hibernate:
-
-    alter table enrollments
-       drop constraint FK8kf1u1857xgo56xbfmnif2c51
-Hibernate: 
-
-    alter table students
-       drop constraint FKalgc33nsolpmegw14o3h6g6rr
-Hibernate:
-
-    alter table teachers
-       drop constraint FKrgr03njnvpwuktc0mntf8t6o0
-Hibernate:
-
-    drop table if exists class_schedules cascade
-Hibernate: 
-
-    drop table if exists courses cascade
-Hibernate: 
-
-    drop table if exists departments cascade
-Hibernate: 
-
-    drop table if exists enrollments cascade
-Hibernate:
-
-    drop table if exists rooms cascade
-Hibernate:
-
-    drop table if exists students cascade
-Hibernate: 
-
-    drop table if exists teachers cascade
-Hibernate: 
-
-    create table class_schedules (
-       schedule_id  serial not null,
-        end_time time,
-        semester varchar(255),
-        start_time time,
-        year int4 not null,
-        course_id int4,
-        room_id int4,
-        teacher_id int4,
-        primary key (schedule_id)
-    )
-Oct 31, 2025 12:49:50 AM org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl getIsolatedConnection
-INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@75bab420] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
-Hibernate: 
-
-    create table courses (
-       course_id  serial not null,
-        course_name varchar(255),
-        credits int4 not null,
-        department_id int4,
-        primary key (course_id)
-    )
-Hibernate: 
-
-    create table departments (
-       department_id  serial not null,
-        location varchar(255),
-        name varchar(255),
-        primary key (department_id)
-    )
-Hibernate: 
-
-    create table enrollments (
-       enrollment_id  serial not null,
-        enrollment_date date,
-        course_id int4,
-        student_id int4,
-        primary key (enrollment_id)
-    )
-Hibernate: 
-
-    create table rooms (
-       room_id  serial not null,
-        capacity int4,
-        room_number varchar(255),
-        primary key (room_id)
-    )
-Hibernate: 
-
-    create table students (
-       student_id  serial not null,
-        first_name varchar(255),
-        last_name varchar(255),
-        department_id int4,
-        primary key (student_id)
-    )
-Hibernate: 
-
-    create table teachers (
-       teacher_id  serial not null,
-        first_name varchar(255),
-        last_name varchar(255),
-        department_id int4,
-        primary key (teacher_id)
-    )
-Hibernate: 
-
-    alter table class_schedules
-       add constraint FKme1t7iugw17i8ye64yafbkpno
-       foreign key (course_id)
-       references courses
-Hibernate: 
-
-    alter table class_schedules
-       add constraint FK2rlbqylwb07utwfushcbsv2an
-       foreign key (room_id)
-       references rooms
-Hibernate:
-
-    alter table class_schedules
-       add constraint FKjrtiswbp5lypa0jqhwtbfnlxc
-       foreign key (teacher_id)
-       references teachers
-Hibernate:
-
-    alter table courses
-       add constraint FKsv2mdywju86wq12x4did4xd78
-       foreign key (department_id)
-       references departments
-Hibernate: 
-
-    alter table enrollments
-       add constraint FKho8mcicp4196ebpltdn9wl6co
-       foreign key (course_id)
-       references courses
-Hibernate:
-
-    alter table enrollments
-       add constraint FK8kf1u1857xgo56xbfmnif2c51
-       foreign key (student_id)
-       references students
-Hibernate: 
-
-    alter table students
-       add constraint FKalgc33nsolpmegw14o3h6g6rr
-       foreign key (department_id)
-       references departments
-Hibernate:
-
-    alter table teachers
-       add constraint FKrgr03njnvpwuktc0mntf8t6o0
-       foreign key (department_id)
-       references departments
-Hibernate: 
-    insert
-    into
-        departments
-        (location, name)
-    values
-        (?, ?)
-Hibernate: 
-    insert
-    into
-        departments
-        (location, name)
-    values
-        (?, ?)
-Hibernate:
-    insert
-    into
-        teachers
-        (department_id, first_name, last_name)
-    values
-        (?, ?, ?)
-Hibernate:
-    insert
-    into
-        teachers
-        (department_id, first_name, last_name)
-    values
-        (?, ?, ?)
-Hibernate: 
-    insert
-    into
-        students
-        (department_id, first_name, last_name)
-    values
-        (?, ?, ?)
-Hibernate:
-    insert
-    into
-        students
-        (department_id, first_name, last_name)
-    values
-        (?, ?, ?)
-Hibernate: 
-    insert
-    into
-        students
-        (department_id, first_name, last_name)
-    values
-        (?, ?, ?)
-Hibernate:
-    insert
-    into
-        students
-        (department_id, first_name, last_name)
-    values
-        (?, ?, ?)
-Hibernate:
-    insert
-    into
-        students
-        (department_id, first_name, last_name)
-    values
-        (?, ?, ?)
-Hibernate:
-    insert
-    into
-        courses
-        (course_name, credits, department_id)
-    values
-        (?, ?, ?)
-Hibernate: 
-    insert
-    into
-        courses
-        (course_name, credits, department_id)
-    values
-        (?, ?, ?)
-Hibernate:
-    insert
-    into
-        rooms
-        (capacity, room_number)
-    values
-        (?, ?)
-Hibernate: 
-    insert
-    into
-        rooms
-        (capacity, room_number)
-    values
-        (?, ?)
-Hibernate:
-    insert
-    into
-        class_schedules
-        (course_id, end_time, room_id, semester, start_time, teacher_id, year)    
-    values
-        (?, ?, ?, ?, ?, ?, ?)
-Hibernate: 
-    insert
-    into
-        class_schedules
-        (course_id, end_time, room_id, semester, start_time, teacher_id, year)    
-    values
-        (?, ?, ?, ?, ?, ?, ?)
-Hibernate:
-    insert
-    into
-        enrollments
-        (course_id, enrollment_date, student_id)
-    values
-        (?, ?, ?)
-Hibernate:
-    insert
-    into
-        enrollments
-        (course_id, enrollment_date, student_id)
-    values
-        (?, ?, ?)
-Hibernate:
-    insert
-    into
-        enrollments
-        (course_id, enrollment_date, student_id)
-    values
-        (?, ?, ?)
-Hibernate:
-    insert
-    into
-        enrollments
-        (course_id, enrollment_date, student_id)
-    values
-        (?, ?, ?)
-Hibernate: 
-    insert
-    into
-        enrollments
-        (course_id, enrollment_date, student_id)
-    values
-        (?, ?, ?)
-Дані успішно збережено!
-Hibernate: 
-    select
-        student1_.first_name as col_0_0_,
-        student1_.last_name as col_1_0_,
-        teacher4_.first_name as col_2_0_,
-        teacher4_.last_name as col_3_0_,
-        course2_.course_name as col_4_0_,
-        department5_.name as col_5_0_,
-        room6_.room_number as col_6_0_,
-        classsched3_.semester as col_7_0_,
-        classsched3_.year as col_8_0_,
-        classsched3_.start_time as col_9_0_,
-        classsched3_.end_time as col_10_0_
-    from
-        enrollments enrollment0_
-    inner join
-        students student1_
-            on enrollment0_.student_id=student1_.student_id
-    inner join
-        courses course2_
-            on enrollment0_.course_id=course2_.course_id
-    inner join
-        class_schedules classsched3_
-            on course2_.course_id=classsched3_.course_id
-    inner join
-        teachers teacher4_
-            on classsched3_.teacher_id=teacher4_.teacher_id
-    inner join
-        departments department5_
-            on course2_.department_id=department5_.department_id
-    inner join
-        rooms room6_
-            on classsched3_.room_id=room6_.room_id
-Студент: Аліса Мельник
-Викладач: Іван Петренко
-Курс: Вступ до програмування
-Кафедра: Комп`ютерні науки
-Аудиторія: 210
-Семестр: Осінь
-Рік: 2024
-Час початку: 09:00
-Час закінчення: 10:30
---------------------------------------------------
-Студент: Катерина Левченко
-Викладач: Іван Петренко
-Курс: Вступ до програмування
-Кафедра: Комп`ютерні науки
-Аудиторія: 210
-Семестр: Осінь
-Рік: 2024
-Час початку: 09:00
-Час закінчення: 10:30
---------------------------------------------------
-Студент: Дмитро Шевченко
-Викладач: Іван Петренко
-Курс: Вступ до програмування
-Кафедра: Комп`ютерні науки
-Аудиторія: 210
-Семестр: Осінь
-Рік: 2024
-Час початку: 09:00
-Час закінчення: 10:30
---------------------------------------------------
-Студент: Богдан Іванов
-Викладач: Оксана Коваль
-Курс: Математичний аналіз I
-Кафедра: Математика
-Аудиторія: 212
-Семестр: Осінь
-Рік: 2024
-Час початку: 11:00
-Час закінчення: 12:30
---------------------------------------------------
-Студент: Олена Петренко
-Викладач: Оксана Коваль
-Курс: Математичний аналіз I
-Кафедра: Математика
-Аудиторія: 212
-Семестр: Осінь
-Рік: 2024
-Час початку: 11:00
-Час закінчення: 12:30
---------------------------------------------------
-Oct 31, 2025 12:49:51 AM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PoolState stop
-INFO: HHH10001008: Cleaning up connection pool [jdbc:postgresql://localhost:5432/school_db]
-```
+2024-11-20 22:01:50.627  INFO 5144 --- [lication.main()] com.school.schoolApplication           : Starting schoolApplication using Java 23 on DESKTOP-11MK3R9 with PID 5144 (C:\Users\dmitr\OneDrive\Documents\GitHub\school-schedule-app\target\classes started by dmitr in C:\Users\dmitr\OneDrive\Documents\GitHub\school-schedule-app)
+2024-11-20 22:01:50.633  INFO 5144 --- [lication.main()] com.school.schoolApplication           : No active profile set, falling back to default profiles: default
+2024-11-20 22:01:51.232  INFO 5144 --- [lication.main()] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2024-11-20 22:01:51.317  INFO 5144 --- [lication.main()] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 78 ms. Found 1 MongoDB repository interfaces.
+2024-11-20 22:01:51.774  INFO 5144 --- [lication.main()] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms'}
+2024-11-20 22:01:51.878  INFO 5144 --- [localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:19}] to localhost:27017
+2024-11-20 22:01:51.878  INFO 5144 --- [localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:20}] to localhost:27017
+2024-11-20 22:01:51.879  INFO 5144 --- [localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=29629300}
+2024-11-20 22:01:52.437  INFO 5144 --- [lication.main()] com.school.schoolApplication           : Started schoolApplication in 2.435 seconds (JVM running for 6.497)
+1. Додати розклад з CSV-файлу
+2. Подивитись розклад
+3. Видалити розклад
+4. Вихід
+Введіть номер команди (1-4): 1
+2024-11-20 22:01:55.904  INFO 5144 --- [lication.main()] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:3, serverValue:21}] to localhost:27017
+5 документів з рядками з розкладу завантажено з CSV.
+1. Додати розклад з CSV-файлу
+2. Подивитись розклад
+3. Видалити розклад
+4. Вихід
+Введіть номер команди (1-4): 2
+Знайдено 5 документів розкладу:
+Schedule { id="673e40339940345e9a4f1b4b"
+ studentFirstName="Аліса"
+ studentLastName="Мельник"
+ teacherFirstName="Іван"
+ teacherLastName="Петренко"
+ courseName="Вступ до програмування"
+ departmentName="Комп`ютерні науки"
+ roomNumber="210"
+ semester="Осінь"
+ year="2024"
+ startTime="09:00:00"
+ endTime="10:30:00"
+}
+Schedule { id="673e40339940345e9a4f1b4c"
+ studentFirstName="Катерина"
+ studentLastName="Левченко"
+ teacherFirstName="Іван"
+ teacherLastName="Петренко"
+ courseName="Вступ до програмування"
+ departmentName="Комп`ютерні науки"
+ roomNumber="210"
+ semester="Осінь"
+ year="2024"
+ startTime="09:00:00"
+ endTime="10:30:00"
+}
+Schedule { id="673e40339940345e9a4f1b4d"
+ studentFirstName="Дмитро"
+ studentLastName="Шевченко"
+ teacherFirstName="Іван"
+ teacherLastName="Петренко"
+ courseName="Вступ до програмування"
+ departmentName="Комп`ютерні науки"
+ roomNumber="210"
+ semester="Осінь"
+ year="2024"
+ startTime="09:00:00"
+ endTime="10:30:00"
+}
+Schedule { id="673e40339940345e9a4f1b4e"
+ studentFirstName="Богдан"
+ studentLastName="Іванов"
+ teacherFirstName="Оксана"
+ teacherLastName="Коваль"
+ courseName="Математичний аналіз I"
+ departmentName="Математика"
+ roomNumber="212"
+ semester="Осінь"
+ year="2024"
+ startTime="11:00:00"
+ endTime="12:30:00"
+}
+Schedule { id="673e40339940345e9a4f1b4f"
+ studentFirstName="Олена"
+ studentLastName="Петренко"
+ teacherFirstName="Оксана"
+ teacherLastName="Коваль"
+ courseName="Математичний аналіз I"
+ departmentName="Математика"
+ roomNumber="212"
+ semester="Осінь"
+ year="2024"
+ startTime="11:00:00"
+ endTime="12:30:00"
+}
+1. Додати розклад з CSV-файлу
+2. Подивитись розклад
+3. Видалити розклад
+4. Вихід
+Введіть номер команди (1-4): 3
+Розклад видалено.
+1. Додати розклад з CSV-файлу
+2. Подивитись розклад
+3. Видалити розклад
+4. Вихід
+Введіть номер команди (1-4): 1
+5 документів з рядками з розкладу завантажено з CSV.
+1. Додати розклад з CSV-файлу
+2. Подивитись розклад
+3. Видалити розклад
+4. Вихід
+Введіть номер команди (1-4): 4
+2024-11-20 22:02:07.334  INFO 5144 --- [ionShutdownHook] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:3, serverValue:21}] to localhost:27017 because the pool has been closed.'''
